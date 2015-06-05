@@ -1,6 +1,10 @@
 
 body
     font-family: 'Istok Web Bold', sans-serif
+#inview,.invis
+    opacity: 0
+    visibility: hidden
+
 
 .bold
     font-weight: bold
@@ -32,13 +36,14 @@ body
 
 .n-cursor
     cursor: default
-//#header
-    position: fixed
-    left: 50%
-    transform: translate(-50%, 0)
-#image-list
-    margin-top: 100em
+#header
+    opacity: 1
 
+#image-list
+    z-index: -1
+    margin-top: 100em
+#myname
+    position: relative
 #header
     background: white
     width: 100%
@@ -46,6 +51,7 @@ body
     padding-bottom: 1em
 
 .fixed
+    z-index: 1
     position: fixed
     top: 0%
     left: 50%
@@ -64,8 +70,8 @@ img
 
 .vcenter
     position: relative
-    top: 50%
-    transform: translateY(50%)
+    top: 35%
+    transform: translateY(35%)
 
 
 @media screen and (min-width: 500px)

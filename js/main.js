@@ -10,6 +10,23 @@ $(document).ready(function(){
     var imgListEle= $('#image-list');
     var em = 0;
     var winheight = $(window).height();
+    var licon = $('#imgjail').find('.spinner');
+    $('#imgjail').find('img').each(function(i){
+        var img = $(this);
+        nlicon = licon.clone();
+        var id = 'licon'+i;
+        nlicon.attr('id',id);
+        $('#image-list').append(img);
+        $('#image-list').append(nlicon);
+        img.on('load',function(){
+            setTimeout(function(){
+                    $('#'+id).hide();
+                    //img.show(1000);
+                    console.log('show');
+            },2000);
+        });
+    });
+
 
     $(document).on('scroll',function(e){
         var docscrolltop = $(document).scrollTop();

@@ -9,14 +9,15 @@ $(document).ready(function(){
     var scrollEle= $('#scroll');
     var imgListEle= $('#image-list');
     var em = 0;
+    var winheight = $(window).height();
 
     $(document).on('scroll',function(e){
         var docscrolltop = $(document).scrollTop();
+        var viewheight = isNaN(window.innerHeight) ? window.clientHeight : window.innerHeight;
         $('img.invis').each(function(){
             var val = $(this).offset().top - docscrolltop ;
-            if(val < 300)
+            if(val < 300 || docscrolltop + viewheight/2 >= winheight)
             {
-                console.log($(document).scrollTop(), $(window).height());
                 $(this).css('visibility','visible');
                 $(this).velocity({opacity:1},{duration:1000});
             }

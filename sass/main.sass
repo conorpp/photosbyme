@@ -1,3 +1,5 @@
+@import animate
+@import common
 
 #header.h2
     font-family: 'Istok Web Bold', sans-serif
@@ -9,50 +11,13 @@ body
     opacity: 0
     visibility: hidden
 
-.bold
-    font-weight: bold
-
-.spaced
-    letter-spacing: 6px
-
-.highlight
-    color: black
-    transition: all 0.5s
-
-.highlight:hover
-    color: rgb(142, 142, 142)
-
-.highlight2
-    color: #626262
-    transition: all 0.5s
-
-.highlight2:hover
-    color: rgb(173, 173, 173)
-
-$hpad: 2em
-.hpad
-    padding-left: $hpad
-    padding-right: $hpad
-
-.fs10
-    font-size: 1.0em
-
-.fs14
-    font-size: 1.4em
-.fs25
-    font-size: 2.5em
-
-.fs100
-    font-size: 10em
-
-.n-cursor
-    cursor: default
 #header
     opacity: 1
 
 #image-list
     z-index: -1
-    margin-top: 6em
+    margin-bottom: 6em
+
 #myname
     position: relative
 #header
@@ -61,29 +26,9 @@ $hpad: 2em
     padding-top: 1px
     padding-bottom: 1em
 
-.fixed
-    z-index: 1
-    position: fixed
-    top: 0%
-    left: 50%
-    width: 100%
-    transform: translate(-50%, 0)
-
-
-.abshcenter
-    position: absolute
-    left: 50%
-    transform: translate(50%,50%)
-
 img
     width: 320px
     padding: 1em
-
-.vcenter
-    position: relative
-    top: 35%
-    transform: translateY(35%)
-
 
 @media screen and (min-width: 500px)
     img
@@ -98,74 +43,4 @@ img
         width: 1280px
 
 
-$time: 4s
-
-.blink_me 
-    -webkit-animation-name: blinker
-    -webkit-animation-duration: $time
-    -webkit-animation-timing-function: linear
-    -webkit-animation-iteration-count: infinite
-    -moz-animation-name: blinker
-    -moz-animation-duration: $time
-    -moz-animation-timing-function: linear
-    -moz-animation-iteration-count: infinite
-    animation-name: blinker
-    animation-duration: $time
-    animation-timing-function: linear
-    animation-iteration-count: infinite
-
-@-moz-keyframes blinker
-    0%
-        opacity: 1.0
-    50%
-        opacity: 0.0
-    100%
-        opacity: 1.0
-
-@-webkit-keyframes blinker
-    0%
-        opacity: 1.0
-    50%
-        opacity: 0.0
-    100%
-        opacity: 1.0
-
-@keyframes blinker
-    0%
-        opacity: 1.0
-    50%
-        opacity: 0.0
-    100%
-        opacity: 1.0
-
-.spinner 
-    width: 30px
-    height: 30px
-    background-color: #333
-
-    margin: 100px auto
-    -webkit-animation: rotateplane 1.2s infinite ease-in-out
-    animation: rotateplane 1.2s infinite ease-in-out
-
-
-@-webkit-keyframes rotateplane 
-    0%  
-        -webkit-transform: perspective(120px) 
-    50%  
-        -webkit-transform: perspective(120px) rotateY(180deg) 
-    100%  
-        -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) 
-
-
-@keyframes rotateplane 
-    0%  
-        transform: perspective(120px) rotateX(0deg) rotateY(0deg)
-        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg) 
-    50%  
-        transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
-        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg) 
-    100%  
-        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg)
-        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg)
-    
 

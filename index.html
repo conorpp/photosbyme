@@ -1,4 +1,4 @@
-<html>
+<html ng-app="pp">
 <head>
 <title>Conor Patrick</title>
 <meta name="viewport" content="width=100%, initial-scale=1">
@@ -10,6 +10,8 @@
 <!--
 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.16/angular-route.min.js"></script>
 <!--
 -->
 <script src="js/main.js"></script>
@@ -17,46 +19,37 @@
 <body>
 <div class="fixed">
     <div id="header" class="text-center">
-        
-            <h2 class=" n-cursor bold spaced highlight" id="myname"> CONOR PATRICK </h2>
-        <div class="fs10 n-cursor">
-            <span class="hpad sub-header highlight2"> CONTACT </span>
-            <span class="hpad sub-header highlight2"> INFO </span>
-            <span class="hpad sub-header highlight2"> BIO </span>
+
+        <a class="noa" href="/#/">
+            <h2 class=" bold spaced highlight" id="myname"> CONOR PATRICK </h2>
+        </a>
+        <div class="fs08 n-cursor">
+            <a class="noa" href="/#/contact">
+                <span id="bio" class="hpad sub-header highlight2">
+                    CONTACT/BIO
+                </span>
+            </a>
 
         </div>
     </div>
     <div id="content" class="text-center">
-        <div style="">
-            <!--
-                <div id="scroll" class="blink_me vcenter fs100 n-cursor">
-                <div class="" style="">Scroll</div>
-                <span class="glyphicon glyphicon-hand-down" aria-hidden="true"></span>
-            </div>
-            -->
-        </div>
     </div>
 </div>
-<div class="text-center">
-<div id="image-list">
-    <div class="">
-    </div>
-    <div id="imgjail" class="hide">
-        <div class="spinner"></div>
-        <img class="invis" src="images/shrunk/alligator.jpg">
-        <img class="invis" src="images/shrunk/bigpine_deer_male_tongue.jpg">
-        <img class="invis" src="images/shrunk/capachino.jpg">
-        <img class="invis" src="images/shrunk/empty_cafe.jpg">
-        <img class="invis" src="images/shrunk/christmaspole_2.jpg">
-        <img class="invis" src="images/shrunk/digger.jpg">
-        <img class="invis" src="images/shrunk/dock_front_best.jpg">
-        <img class="invis" src="images/shrunk/leotie.jpg">
-        <img class="invis" src="images/shrunk/sailbot_1.jpg">
-        <img class="invis" src="images/shrunk/record_player_sharp.jpg">
-    </div>
+<div class="blockspace">
 </div>
 
-</div>
+<div ng-view></div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43448699-7', 'auto');
+    ga('send', 'pageview');
+
+</script>
 </body>
 
 </html>

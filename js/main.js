@@ -1,6 +1,27 @@
-test = 0;
+angular.module('pp', ['ngRoute'])
 
-$(document).ready(function(){
+.config(function($routeProvider){
+    $routeProvider.when("/",
+        {
+            templateUrl: "home.html",
+            controller: "AppCtrl",
+            controllerAs: "app"
+        }
+        ).when("/contact",
+        {
+            templateUrl: "contactbio.html"
+        })
+        ;
+
+})
+
+.controller('AppCtrl', function() {
+      var self = this;
+        self.message = "The app routing is working!";
+    readyfunc();
+});
+
+var readyfunc = function(){
 
 
     //var initFontSize = $('#scroll').css('font-size').replace('px','');
@@ -14,8 +35,8 @@ $(document).ready(function(){
         nlicon = licon.clone();
         var id = 'licon'+i;
         nlicon.attr('id',id);
-        $('#image-list').append(img);
         $('#image-list').append(nlicon);
+        $('#image-list').append(img);
         img.on('load',function(){
             $('#'+id).hide();
         });
@@ -28,15 +49,12 @@ $(document).ready(function(){
         $('img.invis').each(function(){
             var val = $(this).offset().top - docscrolltop ;
             if(val < 300 || docscrolltop + viewheight/2 >= winheight)
-        {
-            console.log(val,winheight);
-            $(this).css('visibility','visible');
-            $(this).velocity({opacity:1},{duration:1000});
-        }
+            {
+                console.log(val,winheight);
+                $(this).css('visibility','visible');
+                $(this).velocity({opacity:1},{duration:1000});
+            }
         });
-        test = e;
-        var inc = 9;
-        var imgListEle= $('#image-list');
         if (docscrolltop > 80)
         {
             $('#myname').css('margin-top','-1em');
@@ -72,4 +90,4 @@ $(document).ready(function(){
     $(document).on('scroll',checkimgs);
     checkimgs();
 
-});
+};

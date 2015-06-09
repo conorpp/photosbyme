@@ -21,6 +21,18 @@ angular.module('pp', ['ngRoute'])
     setTimeout(function(){
         readyfunc();
     },10);
+}).directive('imageonload', function() {
+    return {
+        restrict: 'A',
+    link: function(scope, element, attrs) {
+        element.bind('load', function() {
+            console.log('hid' , attrs['id']);
+            var n = attrs['id'].replace('im','');
+            $('#spin'+n).remove();
+            $('#im'+n).show();
+        });
+    }
+    };
 });
 
 var readyfunc = function(){
@@ -33,14 +45,6 @@ var readyfunc = function(){
     var em = 0;
     var licon = $('.spinner');
     $('#image-list').find('img').each(function(i){
-        var img = $(this);
-        nlicon = licon.clone();
-        var id = 'licon'+i;
-        nlicon.attr('id',id);
-        $('#im'+i).before(nlicon);
-        img.on('load',function(){
-            $('#'+id).hide();
-        });
     });
     var path='images/links/'
     var checkimgs = function(e){

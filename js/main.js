@@ -37,7 +37,7 @@ var readyfunc = function(){
         nlicon = licon.clone();
         var id = 'licon'+i;
         nlicon.attr('id',id);
-        $('#im'+i).prepend(nlicon);
+        $('#im'+i).before(nlicon);
         img.on('load',function(){
             $('#'+id).hide();
         });

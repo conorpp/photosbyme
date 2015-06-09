@@ -18,7 +18,9 @@ angular.module('pp', ['ngRoute'])
 .controller('AppCtrl', function() {
       var self = this;
         self.message = "The app routing is working!";
-    readyfunc();
+    setTimeout(function(){
+        readyfunc();
+    },10);
 });
 
 var readyfunc = function(){
@@ -29,14 +31,13 @@ var readyfunc = function(){
     var scrollEle= $('#scroll');
     var imgListEle= $('#image-list');
     var em = 0;
-    var licon = $('#imgjail').find('.spinner');
-    $('#imgjail').find('img').each(function(i){
+    var licon = $('.spinner');
+    $('#image-list').find('img').each(function(i){
         var img = $(this);
         nlicon = licon.clone();
         var id = 'licon'+i;
         nlicon.attr('id',id);
-        $('#image-list').append(nlicon);
-        $('#image-list').append(img);
+        $('#im'+i).prepend(nlicon);
         img.on('load',function(){
             $('#'+id).hide();
         });
@@ -60,7 +61,6 @@ var readyfunc = function(){
 
         if ((docscrolltop+viewheight)/winheight > 0.91)
         {
-            console.log(docscrolltop + viewheight, winheight);
             num++;
             if (num < 12 && num > 1)
             {

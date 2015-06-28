@@ -21,13 +21,16 @@ angular.module('pp', ['ngRoute'])
     setTimeout(function(){
         readyfunc();
     },10);
-}).directive('imageonload', function() {
+})
+
+.directive('imageonload', function() {
     return {
         restrict: 'A',
     link: function(scope, element, attrs) {
+        var n = attrs['id'].replace('im','');
+        $('#im'+n).hide();
+        element[0].onerror = function(im){console.log('')};
         element.bind('load', function() {
-            console.log('hid' , attrs['id']);
-            var n = attrs['id'].replace('im','');
             $('#spin'+n).remove();
             $('#im'+n).show();
         });
@@ -36,9 +39,6 @@ angular.module('pp', ['ngRoute'])
 });
 
 var readyfunc = function(){
-
-
-    //var initFontSize = $('#scroll').css('font-size').replace('px','');
 
     var scrollEle= $('#scroll');
     var imgListEle= $('#image-list');

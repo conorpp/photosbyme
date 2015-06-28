@@ -66,7 +66,7 @@ var readyfunc = function(){
         if ((docscrolltop+viewheight)/winheight > 0.91)
         {
             num++;
-            if (num < 12 && num > 1)
+            if (num < 10 && num > 1)
             {
                 $('#image-list').append('<img src="'+path+num+'.jpg" >');
             }

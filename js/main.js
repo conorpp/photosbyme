@@ -15,13 +15,17 @@ angular.module('pp', ['ngRoute'])
 
 })
 
-.controller('AppCtrl', function() {
+.controller('AppCtrl', [ '$scope' , '$http', function($scope, $http) {
       var self = this;
         self.message = "The app routing is working!";
-    setTimeout(function(){
+        console.log('wow it works')
+    $http.get('/images/dir.json')
+    .then(function(res){
+        $scope.tags = res.data.children;
+        console.log($scope.tags)
         readyfunc();
-    },10);
-})
+    });
+}])
 
 .directive('imageonload', function() {
     return {
@@ -68,7 +72,7 @@ var readyfunc = function(){
             num++;
             if (num < 10 && num > 1)
             {
-                $('#image-list').append('<img src="'+path+num+'.jpg" >');
+//                $('#image-list').append('<img src="'+path+num+'.jpg" >');
             }
         }
     } 

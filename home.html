@@ -4,11 +4,13 @@
             <div class="spinner" id="spin3"></div>
             <img style="display=none;" id="im3" src="http://i.imgur.com/ABBoWYr.jpg" imageonload>
         </span>
+        
+        <span  ng-model="tags" ng-repeat="tag in tags">
+            <span  ng-repeat="pic in tag.children">
 
-
-        <span ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10]">
-            <div class="spinner" id="spin{{i}}"></div>
-            <img style="display=none;" id="im{{i}}" src="/images/links/{{i}}.jpg" imageonload>
+                <div class="spinner" id="spin{{i}}"></div>
+                <img style="display=none;" id="im{{i}}" src="/images/links/{{tag.name}}/{{pic.name}}" imageonload>
+            </span>
         </span>
     </span>
 </div>

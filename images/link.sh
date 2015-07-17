@@ -1,17 +1,12 @@
 #/bin/bash
 
-out=`find | grep -v "\/links\/"`
-
+out=`find | grep -v "\/links\/" | grep -v 'dir\.json'`
 
 i=0
-rm links/*
-for l in $out
+rm links/* -f -r
+for l in `ls | grep -v "link" | grep -v 'dir\.json' `
 do
-    echo $l
-    if [[ ${l: -4} == ".jpg" || ${l: -4} == ".JPG" ]]
-    then
-        echo "$l -> $i.jpg"
-        ln -s ".$l" "links/$i.jpg"
-        i=$(($i + 1))
-    fi
+    lns -r $l links
 done
+
+find2json links > dir.json

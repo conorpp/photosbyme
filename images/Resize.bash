@@ -7,6 +7,11 @@ do
     d=originals/`dirname $i`
     [[ ! -d $d ]] && mkdir -p $d
     [[ ! -f originals/$i ]] && cp $i $d && echo "$i -> $d"
-    convert $i -resize 1280x1080 $i
+    info=`identify $i`
+    if [[ ! ( $info == *"1280x"* || $info == *"x1080"* ) ]] ; then
+        convert $i -resize 1280x1080 $i
+        info=`identify $i`
+        echo " Resized $i to $(echo info | awk '{print $3}') "
+    fi
 done
 

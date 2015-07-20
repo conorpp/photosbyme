@@ -1,5 +1,6 @@
 #/usr/bin/env bash
 
+./Resize.bash
 out=`find | grep -v "\/links\/" | grep -v 'dir\.json'`
 
 i=0

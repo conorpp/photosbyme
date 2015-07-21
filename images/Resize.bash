@@ -1,6 +1,6 @@
 #/usr/bin/env bash
 
-images=`find | grep -iP '\.jpg|\.png' | grep -v \/originals\/ | grep -v \/links\/`
+images=`find gallary -type f`
 
 for i in $images
 do

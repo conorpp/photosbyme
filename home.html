@@ -5,7 +5,9 @@
             <span  ng-repeat="pic in tag.children">
 
                 <div class="spinner" id="spin{{i}}"></div>
-                <img style="display=none;" id="im{{i}}" src="/images/links/{{tag.name}}/{{pic.name}}" imageonload>
+                <div data-content="Here is a caption" class="image">
+                    <img style="display=none;" id="im{{i}}" src="/images/links/{{tag.name}}/{{pic.name}}" imageonload>
+                </div>
             </span>
         </span>
     </span>

@@ -1,13 +1,12 @@
 #/usr/bin/env bash
 
 ./Resize.bash
-out=`find | grep -v "\/links\/" | grep -v 'dir\.json'`
 
 i=0
 rm links/* -f -r
-for l in `ls | grep -vP "link|\.json|originals|\.bash"`
+for i in `ls gallary`
 do
-    lns -r $l links
+    lns -r gallary/$i links
 done
 
 find2json links > dir.json

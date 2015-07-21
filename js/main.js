@@ -37,6 +37,10 @@ angular.module('pp', ['ngRoute'])
         element.bind('load', function() {
             $('#spin'+n).remove();
             $('#im'+n).show();
+            var self = this;
+            EXIF.getData(this, function(){
+                self.exif = EXIF.getAllTags(this);
+            });
         });
     }
     };

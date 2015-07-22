@@ -1,2 +1,2 @@
 #!/bin/bash
-sass --watch .:../css
+sass --watch main.sass:../css/main.css

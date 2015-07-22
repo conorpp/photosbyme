@@ -1,3 +1,11 @@
+function reduce(numerator,denominator){
+  var gcd = function gcd(a,b){
+    return b ? gcd(b, a%b) : a;
+  };
+  gcd = gcd(numerator,denominator);
+  return [numerator/gcd, denominator/gcd];
+}
+
 angular.module('pp', ['ngRoute'])
 
 .config(function($routeProvider){
@@ -40,6 +48,43 @@ angular.module('pp', ['ngRoute'])
             var self = this;
             EXIF.getData(this, function(){
                 self.exif = EXIF.getAllTags(this);
+                console.log(self.exif, n);
+                var spec = '';
+
+                if (self.exif['ISOSpeedRatings'])
+                {
+                    spec +=  'ISO' + self.exif['ISOSpeedRatings'];
+                }
+                if (self.exif['ShutterSpeedValue'])
+                {
+                    var ss = self.exif['ShutterSpeedValue'];
+                    ss = ((Math.pow(2, ss))+ 0.5)|0;
+                    ss = ' 1/'+ss+'s ';
+                    spec +=  '' + ss;
+                }
+
+                if (self.exif['ApertureValue'])
+                {
+                    var av = self.exif['ApertureValue'];
+                    var cd = Math.pow( 1.4142, av);
+                    spec += ' F' + Math.round(cd* 10)/10;
+                    console.log(av);
+                }
+
+                if (self.exif['Flash'])
+                {
+                  if ( self.exif['Flash'].indexOf('Flash fired') != -1)
+                  {
+                      spec += ' Flash-fired';
+                  }
+                  else
+                  {
+
+                      spec += ' No-flash';
+                  }
+                }
+
+                $('#imspec'+n).text(spec);
             });
         });
     }
@@ -79,7 +124,7 @@ var readyfunc = function(){
 //                $('#image-list').append('<img src="'+path+num+'.jpg" >');
             }
         }
-    } 
+    }
 
     $(document).on('scroll',checkimgs);
     checkimgs();

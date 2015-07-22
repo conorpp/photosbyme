@@ -151,30 +151,19 @@ a.noa {
   left: 50%;
   transform: translate(50%, 50%); }
 
-.image img {
-  width: 100%;
-  vertical-align: top; }
-
-.image:after, .image:before {
-  position: absolute;
-  opacity: 1; }
-
-.image:after {
-  color: white;
+.image {
   position: relative;
-  width: 100%;
-  height: 5%;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.6);
-  content: attr(data-content);
-  z-index: 1;
-  padding: 4px 10px;
-  text-align: center;
-  box-sizing: border-box; }
+  margin: 1em; }
 
-.image:hover:after, .image:hover:before {
-  opacity: 1; }
+.image .specs {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.67);
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  word-spacing: 1em; }
 
 #header.h2 {
   font-family: "Istok Web Bold", sans-serif; }
@@ -199,20 +188,17 @@ body {
   padding-top: 1px;
   padding-bottom: 1em; }
 
-img, .image {
+img, .specs {
   width: 320px; }
 
-.image {
-  margin: 1em; }
-
 @media screen and (min-width: 500px) {
-  img, .image {
+  .size-restrictor, img, .specs {
     width: 420px; } }
 @media screen and (min-width: 900px) {
-  img, .image {
+  .size-restrictor, img, .specs {
     width: 720px; } }
 @media screen and (min-width: 1280px) {
-  img, .image {
+  .size-restrictor, img, .specs {
     width: 1280px; } }
 
 /*# sourceMappingURL=main.css.map */

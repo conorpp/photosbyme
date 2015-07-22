@@ -68,12 +68,34 @@ $hpad:  2em
 .n-cursor
     cursor:  default
 
+.fleft
+    float: left
 
 .vcenter
     position:  relative
     top:  35%
     transform:  translateY(35%)
 
+.labeltheme
+    background-color: rgba(0, 0, 0, 0.67)
+    color: white
+.labeltheme-invert
+    background-color: white
+    color: rgba(0, 0, 0, 0.67)
+
+.taglabel
+    @extend .labeltheme
+    margin-top: 1em
+    display: inline
+    font-size: 1.5em
+    padding: 0 3px 0 3px
+    cursor: pointer
+.taglabel:hover
+    -webkit-transition: -webkit-all 0.5s 
+    transition: all 0.5s
+    @extend .labeltheme-invert
+
+    
 
 .fixed
     z-index:  2
@@ -91,14 +113,17 @@ $hpad:  2em
 
 .image
     position: relative
-    margin: 1em
+    margin: 0 1em 1em 1em
+    font-size: 1.25em
+    font-family: initial
 
 .image .specs
+    @extend .labeltheme
     position: absolute
-    background-color: rgba(0, 0, 0, 0.67)
-    color: white
     margin-left: auto
     margin-right: auto
     left: 0
     right: 0
     word-spacing: 1em
+
+

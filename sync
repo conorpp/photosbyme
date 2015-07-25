@@ -58,6 +58,7 @@ then
     cd images && ./Link.bash
     git checkout gh-pages
     git pull
+    get merge master
     git add .
     git commit -m 'new pics'
     git push

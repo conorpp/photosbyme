@@ -1,10 +1,40 @@
 #!/usr/bin/env bash
 
-eval $SYNCSCRIPT
+: ${GALLOC:?"Need to set GALLOC to dir"}
+: ${SYNCSCRIPT:?"Need to set SYNCSCRIPT to script"}
 
-pics=`find -type f $GALLOC`
+if [[ ! -x $SYNCSCRIPT ]] ; then echo "SYNCSCRIPT is not executable" && exit ; fi
+if [[ ! -d $GALLOC ]] ; then echo "GALLOC is not a dir" && exit ; fi
 
-for i in $pics
+cur=`pwd`
+cd $GALLOC/.. && eval $SYNCSCRIPT
+cd $cur
+
+moved=0
+
+find $GALLOC -type f | while read i
 do
+    bname=$(basename "$i")
+    if [[ ! -f "images/gallary/$bname"  && ! -f "images/food/$bname" ]]
+        then
+            if [[ "$i" == *"/gallary/"* ]] ; then
+
+                echo moving $bname to gallary
+                cp "$i" images/gallary
+            
+            elif [[ "$i" == *"/food/"* ]] ; then
+
+                echo moving $bname to food
+                cp "$i" images/food
+
+            fi
+
+            moved=1
+        fi
 done
+
+if [[ $moved -eq 1 ]]
+    then
+        cd images && ./Link.bash
+    fi
 

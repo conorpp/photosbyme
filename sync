@@ -60,7 +60,7 @@ then
     cd images && ./Link.bash
 fi
 
-if [[ isup-to-date == isup-to-date ]] ; then
+if [[ ! isup-to-date == isup-to-date ]] || [[ `git status` == *"Untracked files"* ]] || [[ `git status` == *"Changes to be committed"* ]]; then
     git checkout gh-pages
     git pull
     git merge master

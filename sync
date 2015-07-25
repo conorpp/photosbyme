@@ -12,29 +12,55 @@ cd $cur
 
 moved=0
 
-find $GALLOC -type f | while read i
+while read i
 do
     bname=$(basename "$i")
     if [[ ! -f "images/gallary/$bname"  && ! -f "images/food/$bname" ]]
-        then
-            if [[ "$i" == *"/gallary/"* ]] ; then
+    then
+        if [[ "$i" == *"/gallary/"* ]] ; then
 
-                echo moving $bname to gallary
-                cp "$i" images/gallary
-            
-            elif [[ "$i" == *"/food/"* ]] ; then
+            echo moving $bname to gallary
+            cp "$i" images/gallary
 
-                echo moving $bname to food
-                cp "$i" images/food
+        elif [[ "$i" == *"/food/"* ]] ; then
 
-            fi
+            echo moving $bname to food
+            cp "$i" images/food
 
-            moved=1
         fi
-done
+        moved=1
+    fi
+done < <(find $GALLOC/food $GALLOC/gallary -type f )
+
+while read i
+do
+    bname=$(basename "$i")
+    if [[ ! -f "$GALLOC/gallary/$bname"  && ! -f "$GALLOC/food/$bname" ]]
+    then
+        if [[ "$i" == *"/gallary/"* ]] ; then
+
+            echo removing $bname from gallary
+            rm "$i" "$(find images/originals/ -name $bname)"
+
+        elif [[ "$i" == *"/food/"* ]] ; then
+
+            echo removing $bname from food
+            rm "$i" "$(find images/originals/ -name $bname)"
+
+        fi
+    fi
+
+done < <(find images/gallary images/food -type f)
 
 if [[ $moved -eq 1 ]]
-    then
-        cd images && ./Link.bash
-    fi
+then
+    echo 'resizing'
+    cd images && ./Link.bash
+    git checkout gh-pages
+    git pull
+    git add .
+    git commit -m 'new pics'
+    git push
+fi
+
 

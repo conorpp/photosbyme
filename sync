@@ -66,6 +66,6 @@ if [[ isup-to-date == isup-to-date ]] ; then
     git merge master
     git add . --all
     git commit -m 'new pics'
-    git push gh-pages
+    git push
 fi
 

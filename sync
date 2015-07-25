@@ -59,11 +59,13 @@ then
     echo 'resizing'
     cd images && ./Link.bash
 fi
+
+if [[ isup-to-date == isup-to-date ]] ; then
     git checkout gh-pages
     git pull
     git merge master
     git add . --all
     git commit -m 'new pics'
     git push gh-pages
-
+fi
 

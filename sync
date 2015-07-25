@@ -15,38 +15,28 @@ moved=0
 while read i
 do
     bname=$(basename "$i")
-    if [[ ! -f "images/gallary/$bname"  && ! -f "images/food/$bname" ]]
+    if [[ "$i" == *"/gallary/"*  && ! -f "images/gallary/$bname" ]]
     then
-        if [[ "$i" == *"/gallary/"* ]] ; then
+        echo moving $bname to gallary
+        cp "$i" images/gallary
 
-            echo moving $bname to gallary
-            cp "$i" images/gallary
-
-        elif [[ "$i" == *"/food/"* ]] ; then
-
-            echo moving $bname to food
-            cp "$i" images/food
-
-        fi
+        moved=1
+    elif [[ "$i" == *"/food/"*  && ! -f "images/food/$bname" ]] ; then
+        echo moving $bname to food
+        cp "$i" images/food
         moved=1
     fi
+
 done < <(find $GALLOC/food $GALLOC/gallary -type f )
 
 while read i
 do
     bname=$(basename "$i")
-    if [[ ! -f "$GALLOC/gallary/$bname"  && ! -f "$GALLOC/food/$bname" ]]
+    if [[ ! -f "$GALLOC/gallary/$bname" ]] || [[ ! -f "$GALLOC/food/$bname" ]]
     then
-        if [[ "$i" == *"/gallary/"* ]] ; then
-
-            echo removing $bname from gallary
-            rm "$i" "$(find images/originals/ -name $bname)"
-
-        elif [[ "$i" == *"/food/"* ]] ; then
-
-            echo removing $bname from food
-            rm "$i" "$(find images/originals/ -name $bname)"
-
+        if [[ "$i" == *"/gallary/"* ]] || [[ "$i" == *"/food/"* ]] ; then
+            rm "$i" "$(find images/originals/ -name '$bname')" -f
+            echo "$(find images/originals/ -name '$bname')"
         fi
     fi
 
@@ -58,8 +48,8 @@ then
     cd images && ./Link.bash
     git checkout gh-pages
     git pull
-    get merge master
-    git add .
+    git merge master
+    git add . -a
     git commit -m 'new pics'
     git push
 fi

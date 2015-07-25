@@ -32,12 +32,24 @@ done < <(find $GALLOC/food $GALLOC/gallary -type f )
 while read i
 do
     bname=$(basename "$i")
-    if [[ ! -f "$GALLOC/gallary/$bname" ]] || [[ ! -f "$GALLOC/food/$bname" ]]
-    then
-        if [[ "$i" == *"/gallary/"* ]] || [[ "$i" == *"/food/"* ]] ; then
-            rm "$i" "$(find images/originals/ -name '$bname')" -f
-            echo "$(find images/originals/ -name '$bname')"
+        
+    if [[ "$i" == *"/gallary/"* ]] ; then
+        if [[ ! -f "$GALLOC/gallary/$bname" ]] ; then
+            echo "removing $i, $(find images/originals/ -name "$bname")"
+            rm "$i" "$(find images/originals/ -name "$bname")" 
+            moved=1
         fi
+    fi
+
+    if [[ "$i" == *"/food/"* ]] ; then
+
+        if [[ ! -f "$GALLOC/food/$bname" ]] ; then
+            echo "removing $i"
+            rm "$i" "$(find images/originals/ -name "$bname")"
+
+            moved=1
+        fi
+
     fi
 
 done < <(find images/gallary images/food -type f)
@@ -49,7 +61,7 @@ then
     git checkout gh-pages
     git pull
     git merge master
-    git add . -a
+    git add . --all
     git commit -m 'new pics'
     git push
 fi

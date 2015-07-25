@@ -30,7 +30,17 @@ angular.module('pp', ['ngRoute'])
     $http.get('/images/dir.json')
     .then(function(res){
         $scope.tags = res.data.children;
-        console.log($scope.tags)
+        $scope.pics = [];
+        for (i in $scope.tags)
+        {
+            var split = $scope.tags[i].split('_')
+            $scope.pics.push({
+                                name: split[2],
+                                tag: split[1],
+                                rank: parseInt(split[0])
+                            }); 
+        }
+        console.log($scope.pics)
         readyfunc();
     });
 }])

@@ -1,17 +1,15 @@
 <div class="text-center">
 <div id="image-list">
 
-        <span  ng-model="tags" ng-repeat="(i,tag) in tags">
-            <span  ng-repeat="(j,pic) in tag.children">
+        <span  ng-model="pics" ng-repeat="(i,pic) in pics | orderBy:'rank'">
 
-                <div class="spinner" id="spin{{i}}-{{j}}"></div>
-                <div class="taglabel">{{tag.name}}</div>
-                <div class="image">
-                    <div class="specs" id="imspec{{i}}-{{j}}"></div>
-                    <img style="display=none;" id="im{{i}}-{{j}}" src="/images/gallary/{{tag.name}}/{{pic.name}}" imageonload>
+            <div class="spinner" id="spin{{i}}"></div>
+            <div class="taglabel">{{pic.tag}}</div>
+            <div class="image">
+                <div class="specs" id="imspec{{i}}"></div>
+                <img style="display=none;" id="im{{i}}" src="/images/gallary/{{tag.name}}/{{pic.name}}" imageonload>
 
-                </div>
-            </span>
+            </div>
         </span>
     </span>
 </div>

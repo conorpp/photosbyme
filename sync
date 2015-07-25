@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+eval $SYNCSCRIPT
+
+pics=`find -type f $GALLOC`
+
+for i in $pics
+do
+done
+

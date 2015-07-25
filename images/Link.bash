@@ -2,5 +2,4 @@
 
 ./Resize.bash
 
-
 find2json gallary > dir.json

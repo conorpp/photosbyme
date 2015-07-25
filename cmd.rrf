@@ -1,1 +1,1 @@
-nohup watch -n 10 "cd /home/conorpp/photosbyme && ./sync &
+nohup watch -n 25 "cd /home/conorpp/photosbyme && ./sync &

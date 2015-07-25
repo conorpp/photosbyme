@@ -58,12 +58,12 @@ if [[ $moved -eq 1 ]]
 then
     echo 'resizing'
     cd images && ./Link.bash
+fi
     git checkout gh-pages
     git pull
     git merge master
     git add . --all
     git commit -m 'new pics'
-    git push
-fi
+    git push gh-pages
 
 

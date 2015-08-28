@@ -2,4 +2,4 @@
 
 See the blog here!
 
-http://photosbyme.conorpp.com
+http://photosby.conorpp.com

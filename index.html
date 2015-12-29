@@ -1,0 +1,104 @@
+---
+layout: default
+---
+
+<div class="marb25">
+    You can follow me on <a href="https://www.instagram.com/_conorpp/">Instagram</a>.
+</div>
+
+<div class="bold headers ">
+{% assign tags = (site.data.pictures.pictures | sort: 'priority' | reverse) %}
+
+{% for tag in tags %}
+<h3 id="tag-{{tag.id}}" name="{{tag.tag}}" class="marr25 inline clicker highlight tagheader">{{tag.tag}}</h3>
+{% endfor %}
+</div>
+
+{% for tag in tags %}
+{% if forloop.index == 1 %} 
+    <input type="hidden" id="lastseen" value="{{tag.id}}">
+{% endif %}
+<div id="gallery-{{tag.id}}" name="{{tag.tag}}" class="gallery hbox {% if forloop.index != 1 %} hide {% endif %}">
+        {% assign pics =  (tag.images | sort: 'priority' | reverse ) %}
+        {% for pic in  pics %}
+            <img class="maxh800 inline" src="/{{tag.dir}}/{{pic.filename}}" title="{{pic.title}}">
+        {% endfor %}
+
+        {% assign vids =  (tag.videos| sort: 'priority' | reverse ) %}
+        {% for vid in vids  %}
+            <video class="maxh800" preload="auto" autoplay="autoplay" muted="muted" loop="loop" webkit-playsinline>
+                <source src="/{{tag.dir}}/{{vid.filename}}" type="video/mp4">
+            </video>
+        {% endfor %}
+        <div class="wbox inline"> </div>
+    </div>
+{% endfor %}
+
+<script>
+
+    // Logic for switch between picture categories
+    // and URLs/history
+
+    var initval;
+
+    function toggle(lastseen, tagnum)
+    {
+        document.querySelector('#gallery-'+lastseen).classList.toggle('hide');
+        document.querySelector('#gallery-'+tagnum).classList.toggle('hide');
+    }
+
+    function switch_to_url(lastseen)
+    {
+        var query = window.location.search.match(/\?g=([a-zA-Z\%0-9]+)/g);
+        if (!query)
+        {
+            query = ['?g='+document.querySelector('#gallery-'+initval).getAttribute('name')];
+        }
+        query = query[0];
+        query = query.replace('?g=','').replace('%20',' ');
+        var ele = document.querySelector('div[name="'+query+'"]');
+        if (ele)
+        {
+
+            toggle(lastseen, ele.id.match(/\d/g)[0]);
+            lastseen = ele.id.match(/\d/g)[0];
+        }
+        else
+        {
+            console.log('warning '+query+' does not exist');
+        }
+
+        return lastseen;
+
+    }
+
+    (function(){
+
+        var lastseen = document.querySelector("#lastseen").value;
+        initval = lastseen;
+        var tags = document.querySelector('.headers');
+
+        lastseen = switch_to_url(lastseen);
+
+        tags.addEventListener('click', function(e){
+
+            var tagnum = e.target.id.match(/\d/g)[0];
+            if (tagnum != lastseen )
+            {
+                toggle(lastseen, tagnum);
+                var name = e.target.getAttribute("name");
+                var url = tagnum == initval ? '/' : '?g=' + name;
+                window.history.pushState(name, name, url);
+            }
+            lastseen = tagnum;
+
+        },false);
+
+        window.onpopstate = function(){
+            lastseen = switch_to_url(lastseen);
+        }
+
+    })();
+</script>
+
+

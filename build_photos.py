@@ -49,7 +49,7 @@ class PicConf:
         return {"tag":tag, 'description':"", 'dir': path, 'images':[], 'videos':[], 'id':self.numTags, 'priority':1}
 
     def getNewPic(self, pic):
-        return {'filename':pic, 'title': '', 'priority':1}
+        return {'filename':pic, 'title': '', 'priority':1, 'basename': os.path.splitext(pic)[0]}
 
     def addFile(self, tag, fname):
         ext = os.path.splitext(fname)[1].lower()
@@ -57,6 +57,8 @@ class PicConf:
             self.getTag(tag)['images'].append(self.getNewPic(fname))
         elif ext == '.mp4':
             self.getTag(tag)['videos'].append(self.getNewPic(fname))
+        elif ext == '.webm':
+            pass
         else:
             raise RuntimeError('Invalid file type '+fname)
 

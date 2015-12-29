@@ -55,6 +55,28 @@ article, .post-title
   width: 50px
   height: 50px
 
+.nomaxw
+  max-width: none
+
 .hbox
   @extend .scrollx
   white-space: nowrap
+
+@media screen and (max-width: 1000px)
+  .maxh800
+    max-height: 290px
+  .marr25
+    margin-right: 5px
+  .marb25
+    margin-bottom: 5px
+  .marl25
+    margin-left: 5px
+  .page-content
+    margin-left: 10px
+  article, .post-title
+    max-width: 60%
+    margin-left: 20%
+
+@media screen and (max-width: 600px)
+  .maxh800
+    max-height: 190px

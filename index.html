@@ -21,13 +21,14 @@ layout: default
 <div id="gallery-{{tag.id}}" name="{{tag.tag}}" class="gallery hbox {% if forloop.index != 1 %} hide {% endif %}">
         {% assign pics =  (tag.images | sort: 'priority' | reverse ) %}
         {% for pic in  pics %}
-            <img class="maxh800 inline" src="/{{tag.dir}}/{{pic.filename}}" title="{{pic.title}}">
+            <img class="maxh800 inline nomaxw" src="/{{tag.dir}}/{{pic.filename}}" title="{{pic.title}}">
         {% endfor %}
 
         {% assign vids =  (tag.videos| sort: 'priority' | reverse ) %}
         {% for vid in vids  %}
-            <video class="maxh800" preload="auto" autoplay="autoplay" muted="muted" loop="loop" webkit-playsinline>
+            <video class="maxh800 nomaxw"  preload="auto" autoplay="autoplay"  loop="loop" webkit-playsinline controls>
                 <source src="/{{tag.dir}}/{{vid.filename}}" type="video/mp4">
+                <source src="/{{tag.dir}}/{{vid.basename}}.webm" type="video/webm">
             </video>
         {% endfor %}
         <div class="wbox inline"> </div>
@@ -99,6 +100,17 @@ layout: default
         }
 
     })();
+
+    // Logic for autoplaying videos on mobile
+    /*
+    (function(){
+        var vids = document.getElementsByTagName('video');
+        for(var i = 0; i < vids.length; i++)
+        {
+            vids.item(i).play();
+        }
+    })();
+    */
 </script>
 
 

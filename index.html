@@ -1,63 +1,104 @@
-<html ng-app="pp">
-<head>
-<title>Conor Patrick</title>
-<meta name="viewport" content="width=100%, initial-scale=1">
+---
+layout: default
+---
 
-<link rel="apple-touch-icon-precomposed" href="/dslr.gif">
-<link rel="icon" href="/dlsr.gif">
-<!--
-
-
--->
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link href='http://fonts.googleapis.com/css?family=Istok+Web:700' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="css/main.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.16/angular-route.min.js"></script>
-<script src="js/exif.js"></script>
-<script src="js/main.js"></script>
-</head>
-<body>
-<div class="fixed">
-    <div id="header" class="text-center">
-
-        <a class="noa" href="/#/">
-            <h2 class=" bold spaced highlight" id="myname"> CONOR PATRICK </h2>
-        </a>
-        <div class="fs08 n-cursor">
-            <a class="noa" href="/#/contact">
-                <span id="bio" class="hpad sub-header highlight2">
-                    CONTACT/BIO
-                </span>
-            </a>
-
-        </div>
-    </div>
-    <div id="content" class="text-center">
-    </div>
+<div class="marb25">
+    You can follow me on <a href="https://www.instagram.com/_conorpp/">Instagram</a>.
 </div>
-<div class="blockspace"></div>
 
-<div ng-view></div>
-<footer class="bgwhite">
-<p class="text-center">
-<span class="hspace"> &copy; 2015 CONOR PATRICK </span>
-<span class="hspace"><a href="https://instagram.com/_conorpp/"> Instagram </a></span>
-<p>
-</footer>
+<div class="bold headers ">
+{% assign tags = (site.data.pictures.pictures | sort: 'priority' | reverse) %}
+
+{% for tag in tags %}
+<h3 id="tag-{{tag.id}}" name="{{tag.tag}}" class="marr25 inline clicker highlight tagheader">{{tag.tag}}</h3>
+{% endfor %}
+</div>
+
+{% for tag in tags %}
+{% if forloop.index == 1 %} 
+    <input type="hidden" id="lastseen" value="{{tag.id}}">
+{% endif %}
+<div id="gallery-{{tag.id}}" name="{{tag.tag}}" class="gallery hbox {% if forloop.index != 1 %} hide {% endif %}">
+        {% assign pics =  (tag.images | sort: 'priority' | reverse ) %}
+        {% for pic in  pics %}
+            <img class="maxh800 inline" src="/{{tag.dir}}/{{pic.filename}}" title="{{pic.title}}">
+        {% endfor %}
+
+        {% assign vids =  (tag.videos| sort: 'priority' | reverse ) %}
+        {% for vid in vids  %}
+            <video class="maxh800" preload="auto" autoplay="autoplay" muted="muted" loop="loop" webkit-playsinline>
+                <source src="/{{tag.dir}}/{{vid.filename}}" type="video/mp4">
+            </video>
+        {% endfor %}
+        <div class="wbox inline"> </div>
+    </div>
+{% endfor %}
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-43448699-7', 'auto');
-    ga('send', 'pageview');
+    // Logic for switch between picture categories
+    // and URLs/history
 
+    var initval;
+
+    function toggle(lastseen, tagnum)
+    {
+        document.querySelector('#gallery-'+lastseen).classList.toggle('hide');
+        document.querySelector('#gallery-'+tagnum).classList.toggle('hide');
+    }
+
+    function switch_to_url(lastseen)
+    {
+        var query = window.location.search.match(/\?g=([a-zA-Z\%0-9]+)/g);
+        if (!query)
+        {
+            query = ['?g='+document.querySelector('#gallery-'+initval).getAttribute('name')];
+        }
+        query = query[0];
+        query = query.replace('?g=','').replace('%20',' ');
+        var ele = document.querySelector('div[name="'+query+'"]');
+        if (ele)
+        {
+
+            toggle(lastseen, ele.id.match(/\d/g)[0]);
+            lastseen = ele.id.match(/\d/g)[0];
+        }
+        else
+        {
+            console.log('warning '+query+' does not exist');
+        }
+
+        return lastseen;
+
+    }
+
+    (function(){
+
+        var lastseen = document.querySelector("#lastseen").value;
+        initval = lastseen;
+        var tags = document.querySelector('.headers');
+
+        lastseen = switch_to_url(lastseen);
+
+        tags.addEventListener('click', function(e){
+
+            var tagnum = e.target.id.match(/\d/g)[0];
+            if (tagnum != lastseen )
+            {
+                toggle(lastseen, tagnum);
+                var name = e.target.getAttribute("name");
+                var url = tagnum == initval ? '/' : '?g=' + name;
+                window.history.pushState(name, name, url);
+            }
+            lastseen = tagnum;
+
+        },false);
+
+        window.onpopstate = function(){
+            lastseen = switch_to_url(lastseen);
+        }
+
+    })();
 </script>
-</body>
 
-</html>
+
